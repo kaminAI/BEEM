@@ -11,9 +11,10 @@ For other types of mixture models the path to good initialisation parameters is 
 
 ## Demo
 
-There is no specific installation required to use BEEM. This implementation uses only bits and bobs from the standard python SciPy stack and `python 3+`. For an example of how to use it, try the [BEEM_Rainbow_demo.ipynb](BEEM_Rainbow_demo.ipynb) demo, which replicates the results from section *5.1*.
-
-![Rainbow](rainbow.jpg =200x100)!
+There is no specific installation required to use BEEM. This implementation uses only bits and bobs from the standard python SciPy stack and `python 3+`. For an example of how to use it, try the [BEEM_Rainbow_demo.ipynb](BEEM_Rainbow_demo.ipynb) demo, which replicates the results from section **5.1**.
+<p align="center">
+    <img src="rainbow.jpg" width="500" title="Raindow">
+</p>
 
 ## Citation
 
