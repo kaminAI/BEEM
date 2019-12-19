@@ -1,26 +1,19 @@
-#import _init_paths
-import numpy as np
+import copy
 
-from sklearn.mixture import GaussianMixture as GMM
-from sklearn.cluster import KMeans
+import numpy as np
 from sklearn import datasets
+from sklearn.cluster import KMeans
+from sklearn.mixture import GaussianMixture as GMM
 from sklearn.utils import shuffle
 from sklearn.utils.fixes import logsumexp
 
-import copy
-# from src.utils.bandit import equalbins,score_mixture_likelihood, boltzmann
-# from src.utils.bandit import boltzmann_sampling, assign
-
-from utils import make_equal_bin_sizes as equalbins
-from utils import score_mixture_likelihood, boltzmann
-from utils import boltzmann_sampling, assign
-
-
+from .utils import assign, boltzmann, boltzmann_sampling
+from .utils import make_equal_bin_sizes as equalbins
+from .utils import score_mixture_likelihood
 
 
 class BeemGMM:
-
-    def __init__(self, n_components, tau=1.4, decay=0.97, patience=50, init='random', use_prior=False):
+    def __init__(self, n_components, tau=1.4, decay=0.97, patience=50, init="random", use_prior=False):
 
         self.n_components = n_components
         self.tau = tau
@@ -44,7 +37,7 @@ class BeemGMM:
 
         log_prob_norm = logsumexp(weighted_logP_mtrx, axis=1)
 
-        with np.errstate(under='ignore'):
+        with np.errstate(under="ignore"):
             log_resp = weighted_logP_mtrx - log_prob_norm[:, np.newaxis]
 
         return log_resp
@@ -86,9 +79,9 @@ class BeemGMM:
 
         # Make initial sample <-> model assignment
         sample_indices = np.arange(0, len(X))
-        if self.init.lower() == 'random':
+        if self.init.lower() == "random":
             bins = equalbins(sample_indices, n_bins=self.n_components)
-        elif self.init.lower() == 'kmeans':
+        elif self.init.lower() == "kmeans":
             km = KMeans(n_clusters=self.n_components)
             km.fit(X)
             y_km = km.predict(X)
@@ -101,7 +94,7 @@ class BeemGMM:
         scores = []
         homo_scores = []
         TAU = []
-        bincounts=[]
+        bincounts = []
         while n_worse < self.patience:
             TAU.append(self.tau)
             iters += 1
@@ -116,17 +109,12 @@ class BeemGMM:
 
             self.pi_update(X, tau=1)  # OBS TAU = 1 for now
 
-            #spb = np.asarray([len(bin) for bin in bins])
-            #self.pi = np.sum(spb) / (len(spb) * spb + 0.01)
-
-
             p_mtrx = self.predict_proba(X)
             # print(p_mtrx[0].round(4))
             bins = boltzmann_sampling(p_mtrx)
 
             spb = np.asarray([len(bin) for bin in bins])
             bincounts.append(spb)
-            #self.pi = np.sum(spb) / (len(spb) * spb + 0.01)
 
             if score <= best_score:
                 n_worse += 1
@@ -138,7 +126,4 @@ class BeemGMM:
             self.tau = np.max([self.tau, 0.1])
 
         self.components = best_components
-        return scores, TAU,bincounts
-
-
-
+        return scores, TAU, bincounts

@@ -3,14 +3,12 @@ import datetime
 import matplotlib
 import matplotlib.patches as mpatches
 import matplotlib.ticker as plticker
-from scipy import interp
 import numpy as np
 import scipy.constants as sc
 import seaborn as sns
 from matplotlib import pyplot as plt
-
-# Turns off the retarded error when one plots multiple color scatters
 from matplotlib.axes._axes import _log as matplotlib_axes_logger
+from scipy import interp
 from sklearn.metrics import auc, roc_curve
 from sklearn.preprocessing import label_binarize
 
@@ -282,4 +280,3 @@ def plot_metrics(mets, gp=False, save_me=False):
         )
 
     plt.show()
-
