@@ -20,11 +20,13 @@ There is no specific installation required to use BEEM. This implementation uses
 
 If you find this repo useful in your research, please consider citing our work:
 
-    @inproceedings{handle,
-        title={}
-        author={},
-        booktitle={},
-        year={}
+    @misc{edman2019boltzmann,
+        title={Boltzmann Exploration Expectation-Maximisation},
+        author={Mathias Edman and Neil Dhir},
+        year={2019},
+        eprint={1912.08869},
+        archivePrefix={arXiv},
+        primaryClass={stat.ML}
     }
 
 
