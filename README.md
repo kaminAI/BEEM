@@ -4,6 +4,8 @@ We present a general method for fitting finite mixture models (FMM). Learning in
 
 For other types of mixture models the path to good initialisation parameters is often unclear and may require a problem specific solution. To this end, we propose a general heuristic learning algorithm that utilises Boltzmann exploration to assign each observation to a specific base distribution within the mixture model, which we call Boltzmann exploration expectation-maximisation (BEEM). With BEEM, hard assignments allow straight forward parameter learning for each base distribution by conditioning only on its assigned observations. Consequently it can be applied to mixtures of any base distribution where single component parameter learning is tractable. The stochastic learning procedure is able to escape local optima and is thus insensitive to parameter initialisation. We show competitive performance on a number of synthetic benchmark cases as well as on real-world datasets.
 
+[Full paper](https://arxiv.org/abs/1912.08869)
+
 **Corresponding authors**:
 
 * [Mathias Edman](mathias@kamin.ai), Kamin AI AB
